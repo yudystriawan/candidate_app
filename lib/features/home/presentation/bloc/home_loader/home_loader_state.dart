@@ -5,10 +5,10 @@ class HomeLoaderState with _$HomeLoaderState {
   const factory HomeLoaderState({
     @Default(false) bool isLoading,
     Failure? failure,
-    required KtList<Candidate> candidates,
+    required KtList<Object> data,
   }) = _HomeLoaderState;
 
   factory HomeLoaderState.initial() => const HomeLoaderState(
-        candidates: KtList.empty(),
+        data: KtList.empty(),
       );
 }

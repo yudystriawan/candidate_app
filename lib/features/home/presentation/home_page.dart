@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
+import 'package:candidate_app/features/home/presentation/widgets/blog_item_widget.dart';
+import 'package:candidate_app/features/home/presentation/widgets/candidate_item_widget.dart';
 import 'package:candidate_app/features/home/presentation/widgets/home_failure_widget.dart';
 import 'package:candidate_app/injection.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
         body: BlocBuilder<HomeLoaderBloc, HomeLoaderState>(
           buildWhen: (p, c) => p.isLoading != c.isLoading,
           builder: (context, state) {
-            final candidates = state.candidates;
+            final data = state.data;
             final hasError = state.failure != null;
 
             if (hasError) {
@@ -33,11 +35,11 @@ class HomePage extends StatelessWidget {
             return Column(
               children: [
                 if (state.isLoading) const LinearProgressIndicator(),
-                if (candidates.isEmpty() && !state.isLoading)
+                if (data.isEmpty() && !state.isLoading)
                   const Center(child: Text('No data.')),
                 Expanded(
                   child: ListView.separated(
-                    itemCount: candidates.size,
+                    itemCount: data.size,
                     padding: const EdgeInsets.all(8),
                     separatorBuilder: (BuildContext context, int index) {
                       return const SizedBox(
@@ -45,94 +47,20 @@ class HomePage extends StatelessWidget {
                       );
                     },
                     itemBuilder: (BuildContext context, int index) {
-                      final candidate = candidates[index];
-                      return Card(
-                        child: Container(
-                          height: 120,
-                          padding: const EdgeInsets.all(12),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 82,
-                                height: 82,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(candidate.photoUrl),
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      _getName(candidate),
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 2),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Icon(
-                                                Icons.cake,
-                                                size: 18,
-                                                color: Colors.grey,
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                candidate.birthday
-                                                    .toDateFormat(),
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            'Expired at: ${candidate.expired.toDateFormat()}',
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    if (candidate.isExpired)
-                                      Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 2, horizontal: 8),
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: const Text(
-                                            'Expired',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      final isCandidate = data[index] is Candidate;
+                      final isBlog = data[index] is Blog;
+
+                      if (isCandidate) {
+                        return CandidateItemWidget(
+                          candidate: data[index] as Candidate,
+                        );
+                      }
+
+                      if (isBlog) {
+                        return BlogItemWidget(blog: data[index] as Blog);
+                      }
+
+                      return const SizedBox();
                     },
                   ),
                 ),
@@ -142,20 +70,5 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _getName(Candidate candidate) {
-    String name = '';
-    switch (candidate.gender) {
-      case 'm':
-        name += 'Mr. ';
-        break;
-      case 'f':
-        name += 'Mrs. ';
-        break;
-      default:
-    }
-    name += candidate.name;
-    return name;
   }
 }

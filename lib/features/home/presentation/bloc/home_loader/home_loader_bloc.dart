@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 
 import '../../../../../core/error/failures.dart';
-import '../../../domain/entities/entity.dart';
-import '../../../domain/usecases/get_candidates.dart';
+import '../../../domain/usecases/get_blogs.dart' as blog;
+import '../../../domain/usecases/get_candidates.dart' as candidate;
 
 part 'home_loader_bloc.freezed.dart';
 part 'home_loader_event.dart';
@@ -15,10 +15,12 @@ part 'home_loader_state.dart';
 
 @injectable
 class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
-  final GetCandidates _getCandidates;
+  final candidate.GetCandidates _getCandidates;
+  final blog.GetBlogs _getBlogs;
 
   HomeLoaderBloc(
     this._getCandidates,
+    this._getBlogs,
   ) : super(HomeLoaderState.initial()) {
     on<_Fetched>(_onFetched);
   }
@@ -29,17 +31,49 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
   ) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _getCandidates(const Params(null));
+    // get candidates data
+    final failureOrCandidates = await _getCandidates(
+      const candidate.Params(null),
+    );
 
-    emit(result.fold(
-      (f) => state.copyWith(
-        isLoading: false,
-        failure: f,
-      ),
-      (candidates) => state.copyWith(
-        isLoading: false,
-        candidates: candidates,
-      ),
+    // get blogs data
+    final failureOrBlogs = await _getBlogs(const blog.Params(null));
+
+    final newState = state.copyWith(isLoading: false);
+
+    // while get candidates has error, return the failure
+    if (failureOrCandidates.isLeft()) {
+      emit(newState.copyWith(
+        failure: failureOrCandidates
+            .swap()
+            .getOrElse(() => const Failure.unexpectedError()),
+      ));
+      return;
+    }
+
+    // while get blogs has error, return the failure
+    if (failureOrBlogs.isLeft()) {
+      emit(newState.copyWith(
+        failure: failureOrCandidates
+            .swap()
+            .getOrElse(() => const Failure.unexpectedError()),
+      ));
+      return;
+    }
+
+    final candidates =
+        failureOrCandidates.getOrElse(() => const KtList.empty());
+    final blogs = failureOrBlogs.getOrElse(() => const KtList.empty());
+
+    // combine the data
+    final KtMutableList<Object> data = KtMutableList.empty();
+    data.addAll(candidates);
+    data.addAll(blogs);
+    data.shuffle();
+
+    emit(newState.copyWith(
+      failure: null,
+      data: data,
     ));
   }
 }

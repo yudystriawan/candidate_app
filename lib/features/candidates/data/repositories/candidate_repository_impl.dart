@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:candidate_app/features/candidates/data/datasources/candidate_remote_data_source.dart';
 import 'package:candidate_app/features/candidates/domain/entities/candidate.dart';
 import 'package:candidate_app/core/error/failures.dart';
@@ -17,12 +19,13 @@ class CandidateRepositoryImpl implements CandidateRepository {
       {String? query}) async {
     try {
       final result = await _remoteDataSource.getCandidates(query: query);
-      final candidates = result.result?.map((e) => e.toDomain()).toList();
+      final candidates = result.results?.map((e) => e.toDomain()).toList();
 
       return right(KtList.from(candidates ?? []));
     } on Failure catch (e) {
       return left(e);
-    } catch (e) {
+    } catch (e, s) {
+      log('getCandidatesFailure', error: e, stackTrace: s);
       return left(const Failure.unexpectedError());
     }
   }

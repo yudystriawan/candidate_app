@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:candidate_app/core/error/failures.dart';
 import 'package:candidate_app/core/http_client/api_path.dart';
 import 'package:candidate_app/features/candidates/data/models/model.dart';
@@ -33,19 +35,19 @@ class CandidateRemoteDataSourceImpl implements CandidateRemoteDataSource {
         response.data,
         (dataJson) {
           if (dataJson == null) return null;
-          return (response.data['result'] as List)
+          return (response.data['results'] as List)
               .map((json) => CandidateDto.fromJson(json))
               .toList();
         },
       );
 
       if (query != null) {
-        final filteredResult = responseData.result
+        final filteredResult = responseData.results
             ?.where((element) =>
                 element.name?.toLowerCase().contains(query.toLowerCase()) ??
                 false)
             .toList();
-        return responseData.copyWith(result: filteredResult);
+        return responseData.copyWith(results: filteredResult);
       }
 
       return responseData;
@@ -62,7 +64,8 @@ class CandidateRemoteDataSourceImpl implements CandidateRemoteDataSource {
         statusCode: e.response?.statusCode,
         message: e.response?.statusMessage,
       );
-    } catch (e) {
+    } catch (e, s) {
+      log('getCandidatesFailure', error: e, stackTrace: s);
       throw const Failure.unexpectedError();
     }
   }

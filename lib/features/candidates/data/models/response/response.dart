@@ -6,7 +6,7 @@ part 'response.g.dart';
 @Freezed(genericArgumentFactories: true)
 class CandidateBaseResponse<T> with _$CandidateBaseResponse<T> {
   const factory CandidateBaseResponse({
-    T? result,
+    T? results,
   }) = _CandidateBaseResponse<T>;
 
   factory CandidateBaseResponse.fromJson(

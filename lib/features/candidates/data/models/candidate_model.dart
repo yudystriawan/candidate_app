@@ -13,4 +13,14 @@ class CandidateDto with _$CandidateDto {
 
   factory CandidateDto.fromJson(Map<String, dynamic> json) =>
       _$CandidateDtoFromJson(json);
+
+  Candidate toDomain() {
+    return Candidate(
+      id: id ?? 0,
+      name: name ?? '',
+      photoUrl: photoUrl ?? '',
+      birthday: birthday ?? 0,
+      expired: expired ?? 0,
+    );
+  }
 }

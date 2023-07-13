@@ -1,6 +1,5 @@
 import 'package:candidate_app/core/http_client/config.dart';
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 
 class BaseHttpClient {
   final String baseUrl;

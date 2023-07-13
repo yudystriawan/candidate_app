@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../injection.dart';
 import 'bloc/detail_candidate_loader/detail_candidate_loader_bloc.dart';
+import 'bloc/launch_actor/launch_actor_bloc.dart';
 
 @RoutePage()
 class DetailCandidatePage extends StatelessWidget implements AutoRouteWrapper {
@@ -54,9 +55,16 @@ class DetailCandidatePage extends StatelessWidget implements AutoRouteWrapper {
   }
 
   @override
-  Widget wrappedRoute(BuildContext context) => BlocProvider(
-        create: (context) => getIt<DetailCandidateLoaderBloc>()
-          ..add(DetailCandidateLoaderEvent.showed(candidate.id)),
+  Widget wrappedRoute(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => getIt<DetailCandidateLoaderBloc>()
+              ..add(DetailCandidateLoaderEvent.showed(candidate.id)),
+          ),
+          BlocProvider(
+            create: (context) => getIt<LaunchActorBloc>(),
+          ),
+        ],
         child: this,
       );
 }

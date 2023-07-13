@@ -41,7 +41,7 @@ class CandidateRemoteDataSourceImpl implements CandidateRemoteDataSource {
         },
       );
 
-      if (query != null) {
+      if (query != null && query.isNotEmpty) {
         final filteredResult = responseData.results
             ?.where((element) =>
                 element.name?.toLowerCase().contains(query.toLowerCase()) ??

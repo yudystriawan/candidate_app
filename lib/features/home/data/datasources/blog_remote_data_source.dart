@@ -38,7 +38,7 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
         },
       );
 
-      if (query != null) {
+      if (query != null && query.isNotEmpty) {
         final filteredResult = responseData.results
             ?.where((element) =>
                 element.title?.toLowerCase().contains(query.toLowerCase()) ??

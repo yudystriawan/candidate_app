@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -20,11 +21,21 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
   final candidate.GetCandidates _getCandidates;
   final blog.GetBlogs _getBlogs;
 
+  CancelableOperation<void>? _cancelableOperation;
+
   HomeLoaderBloc(
     this._getCandidates,
     this._getBlogs,
   ) : super(HomeLoaderState.initial()) {
     on<_Fetched>(_onFetched);
+    on<_QueryChanged>(_onQueryChanged);
+  }
+
+  void _searchStarted() {
+    _cancelableOperation = CancelableOperation.fromFuture(
+      Future.delayed(const Duration(milliseconds: 800)),
+      onCancel: () {},
+    );
   }
 
   void _onFetched(
@@ -77,5 +88,18 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
       failure: null,
       data: data,
     ));
+  }
+
+  void _onQueryChanged(
+    _QueryChanged event,
+    Emitter<HomeLoaderState> emit,
+  ) async {
+    final query = event.query;
+
+    _cancelableOperation?.cancel();
+    _searchStarted();
+
+    _cancelableOperation?.value
+        .whenComplete(() => add(HomeLoaderEvent.fetched(query)));
   }
 }

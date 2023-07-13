@@ -7,6 +7,6 @@ class Status with _$Status {
     required String status,
     required String jobTitle,
     required String companyName,
-    required int industry,
+    required String industry,
   }) = _Status;
 }

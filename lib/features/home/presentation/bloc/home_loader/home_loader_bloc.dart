@@ -31,15 +31,12 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
     _Fetched event,
     Emitter<HomeLoaderState> emit,
   ) async {
+    final query = event.query;
+
     emit(state.copyWith(isLoading: true));
 
     // get candidates data
-    final failureOrCandidates = await _getCandidates(
-      const candidate.Params(null),
-    );
-
-    // get blogs data
-    final failureOrBlogs = await _getBlogs(const blog.Params(null));
+    final failureOrCandidates = await _getCandidates(candidate.Params(query));
 
     final newState = state.copyWith(isLoading: false);
 
@@ -53,10 +50,13 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
       return;
     }
 
+    // get blogs data
+    final failureOrBlogs = await _getBlogs(blog.Params(query));
+
     // while get blogs has error, return the failure
     if (failureOrBlogs.isLeft()) {
       emit(newState.copyWith(
-        failure: failureOrCandidates
+        failure: failureOrBlogs
             .swap()
             .getOrElse(() => const Failure.unexpectedError()),
       ));

@@ -12,4 +12,5 @@ class Failure with _$Failure {
   }) = _ServerError;
   const factory Failure.unexpectedError() = _UnexpectedError;
   const factory Failure.notFound() = _NotFound;
+  const factory Failure.unableToFetch() = _UnableToFetch;
 }

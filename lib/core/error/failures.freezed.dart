@@ -23,6 +23,7 @@ mixin _$Failure {
         serverError,
     required TResult Function() unexpectedError,
     required TResult Function() notFound,
+    required TResult Function() unableToFetch,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +33,7 @@ mixin _$Failure {
         serverError,
     TResult? Function()? unexpectedError,
     TResult? Function()? notFound,
+    TResult? Function()? unableToFetch,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +43,7 @@ mixin _$Failure {
         serverError,
     TResult Function()? unexpectedError,
     TResult Function()? notFound,
+    TResult Function()? unableToFetch,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +52,7 @@ mixin _$Failure {
     required TResult Function(_ServerError value) serverError,
     required TResult Function(_UnexpectedError value) unexpectedError,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_UnableToFetch value) unableToFetch,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +60,7 @@ mixin _$Failure {
     TResult? Function(_ServerError value)? serverError,
     TResult? Function(_UnexpectedError value)? unexpectedError,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_UnableToFetch value)? unableToFetch,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$Failure {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_UnexpectedError value)? unexpectedError,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_UnableToFetch value)? unableToFetch,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -173,6 +179,7 @@ class _$_ServerError implements _ServerError {
         serverError,
     required TResult Function() unexpectedError,
     required TResult Function() notFound,
+    required TResult Function() unableToFetch,
   }) {
     return serverError(statusCode, message, requestOptions);
   }
@@ -185,6 +192,7 @@ class _$_ServerError implements _ServerError {
         serverError,
     TResult? Function()? unexpectedError,
     TResult? Function()? notFound,
+    TResult? Function()? unableToFetch,
   }) {
     return serverError?.call(statusCode, message, requestOptions);
   }
@@ -197,6 +205,7 @@ class _$_ServerError implements _ServerError {
         serverError,
     TResult Function()? unexpectedError,
     TResult Function()? notFound,
+    TResult Function()? unableToFetch,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -211,6 +220,7 @@ class _$_ServerError implements _ServerError {
     required TResult Function(_ServerError value) serverError,
     required TResult Function(_UnexpectedError value) unexpectedError,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_UnableToFetch value) unableToFetch,
   }) {
     return serverError(this);
   }
@@ -221,6 +231,7 @@ class _$_ServerError implements _ServerError {
     TResult? Function(_ServerError value)? serverError,
     TResult? Function(_UnexpectedError value)? unexpectedError,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_UnableToFetch value)? unableToFetch,
   }) {
     return serverError?.call(this);
   }
@@ -231,6 +242,7 @@ class _$_ServerError implements _ServerError {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_UnexpectedError value)? unexpectedError,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_UnableToFetch value)? unableToFetch,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -297,6 +309,7 @@ class _$_UnexpectedError implements _UnexpectedError {
         serverError,
     required TResult Function() unexpectedError,
     required TResult Function() notFound,
+    required TResult Function() unableToFetch,
   }) {
     return unexpectedError();
   }
@@ -309,6 +322,7 @@ class _$_UnexpectedError implements _UnexpectedError {
         serverError,
     TResult? Function()? unexpectedError,
     TResult? Function()? notFound,
+    TResult? Function()? unableToFetch,
   }) {
     return unexpectedError?.call();
   }
@@ -321,6 +335,7 @@ class _$_UnexpectedError implements _UnexpectedError {
         serverError,
     TResult Function()? unexpectedError,
     TResult Function()? notFound,
+    TResult Function()? unableToFetch,
     required TResult orElse(),
   }) {
     if (unexpectedError != null) {
@@ -335,6 +350,7 @@ class _$_UnexpectedError implements _UnexpectedError {
     required TResult Function(_ServerError value) serverError,
     required TResult Function(_UnexpectedError value) unexpectedError,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_UnableToFetch value) unableToFetch,
   }) {
     return unexpectedError(this);
   }
@@ -345,6 +361,7 @@ class _$_UnexpectedError implements _UnexpectedError {
     TResult? Function(_ServerError value)? serverError,
     TResult? Function(_UnexpectedError value)? unexpectedError,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_UnableToFetch value)? unableToFetch,
   }) {
     return unexpectedError?.call(this);
   }
@@ -355,6 +372,7 @@ class _$_UnexpectedError implements _UnexpectedError {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_UnexpectedError value)? unexpectedError,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_UnableToFetch value)? unableToFetch,
     required TResult orElse(),
   }) {
     if (unexpectedError != null) {
@@ -411,6 +429,7 @@ class _$_NotFound implements _NotFound {
         serverError,
     required TResult Function() unexpectedError,
     required TResult Function() notFound,
+    required TResult Function() unableToFetch,
   }) {
     return notFound();
   }
@@ -423,6 +442,7 @@ class _$_NotFound implements _NotFound {
         serverError,
     TResult? Function()? unexpectedError,
     TResult? Function()? notFound,
+    TResult? Function()? unableToFetch,
   }) {
     return notFound?.call();
   }
@@ -435,6 +455,7 @@ class _$_NotFound implements _NotFound {
         serverError,
     TResult Function()? unexpectedError,
     TResult Function()? notFound,
+    TResult Function()? unableToFetch,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -449,6 +470,7 @@ class _$_NotFound implements _NotFound {
     required TResult Function(_ServerError value) serverError,
     required TResult Function(_UnexpectedError value) unexpectedError,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_UnableToFetch value) unableToFetch,
   }) {
     return notFound(this);
   }
@@ -459,6 +481,7 @@ class _$_NotFound implements _NotFound {
     TResult? Function(_ServerError value)? serverError,
     TResult? Function(_UnexpectedError value)? unexpectedError,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_UnableToFetch value)? unableToFetch,
   }) {
     return notFound?.call(this);
   }
@@ -469,6 +492,7 @@ class _$_NotFound implements _NotFound {
     TResult Function(_ServerError value)? serverError,
     TResult Function(_UnexpectedError value)? unexpectedError,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_UnableToFetch value)? unableToFetch,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -480,4 +504,124 @@ class _$_NotFound implements _NotFound {
 
 abstract class _NotFound implements Failure {
   const factory _NotFound() = _$_NotFound;
+}
+
+/// @nodoc
+abstract class _$$_UnableToFetchCopyWith<$Res> {
+  factory _$$_UnableToFetchCopyWith(
+          _$_UnableToFetch value, $Res Function(_$_UnableToFetch) then) =
+      __$$_UnableToFetchCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_UnableToFetchCopyWithImpl<$Res>
+    extends _$FailureCopyWithImpl<$Res, _$_UnableToFetch>
+    implements _$$_UnableToFetchCopyWith<$Res> {
+  __$$_UnableToFetchCopyWithImpl(
+      _$_UnableToFetch _value, $Res Function(_$_UnableToFetch) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_UnableToFetch implements _UnableToFetch {
+  const _$_UnableToFetch();
+
+  @override
+  String toString() {
+    return 'Failure.unableToFetch()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_UnableToFetch);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            int? statusCode, String? message, RequestOptions? requestOptions)
+        serverError,
+    required TResult Function() unexpectedError,
+    required TResult Function() notFound,
+    required TResult Function() unableToFetch,
+  }) {
+    return unableToFetch();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            int? statusCode, String? message, RequestOptions? requestOptions)?
+        serverError,
+    TResult? Function()? unexpectedError,
+    TResult? Function()? notFound,
+    TResult? Function()? unableToFetch,
+  }) {
+    return unableToFetch?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            int? statusCode, String? message, RequestOptions? requestOptions)?
+        serverError,
+    TResult Function()? unexpectedError,
+    TResult Function()? notFound,
+    TResult Function()? unableToFetch,
+    required TResult orElse(),
+  }) {
+    if (unableToFetch != null) {
+      return unableToFetch();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ServerError value) serverError,
+    required TResult Function(_UnexpectedError value) unexpectedError,
+    required TResult Function(_NotFound value) notFound,
+    required TResult Function(_UnableToFetch value) unableToFetch,
+  }) {
+    return unableToFetch(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ServerError value)? serverError,
+    TResult? Function(_UnexpectedError value)? unexpectedError,
+    TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_UnableToFetch value)? unableToFetch,
+  }) {
+    return unableToFetch?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ServerError value)? serverError,
+    TResult Function(_UnexpectedError value)? unexpectedError,
+    TResult Function(_NotFound value)? notFound,
+    TResult Function(_UnableToFetch value)? unableToFetch,
+    required TResult orElse(),
+  }) {
+    if (unableToFetch != null) {
+      return unableToFetch(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnableToFetch implements Failure {
+  const factory _UnableToFetch() = _$_UnableToFetch;
 }

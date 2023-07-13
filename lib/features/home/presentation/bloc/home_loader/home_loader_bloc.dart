@@ -1,5 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -69,7 +71,7 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
     final KtMutableList<Object> data = KtMutableList.empty();
     data.addAll(candidates);
     data.addAll(blogs);
-    data.shuffle();
+    data.shuffle(Random());
 
     emit(newState.copyWith(
       failure: null,

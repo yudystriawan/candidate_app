@@ -4,8 +4,10 @@ import 'package:candidate_app/features/candidates/domain/entities/candidate.dart
 import 'package:candidate_app/features/candidates/domain/repositories/candidate_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 
+@injectable
 class GetCandidates implements Usecase<KtList<Candidate>, Params> {
   final CandidateRepository _repository;
 

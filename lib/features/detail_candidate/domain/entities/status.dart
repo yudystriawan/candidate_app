@@ -9,4 +9,12 @@ class Status with _$Status {
     required String companyName,
     required String industry,
   }) = _Status;
+
+  factory Status.empty() => const Status(
+        id: 0,
+        status: '',
+        jobTitle: '',
+        companyName: '',
+        industry: '',
+      );
 }

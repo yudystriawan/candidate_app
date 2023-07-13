@@ -9,4 +9,12 @@ class Address with _$Address {
     required String state,
     required int zipCode,
   }) = _Address;
+
+  factory Address.empty() => const Address(
+        id: 0,
+        address: '',
+        city: '',
+        state: '',
+        zipCode: 0,
+      );
 }

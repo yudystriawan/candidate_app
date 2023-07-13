@@ -7,4 +7,10 @@ class Email with _$Email {
     required String email,
     required String phone,
   }) = _Email;
+
+  factory Email.empty() => const Email(
+        id: 0,
+        email: '',
+        phone: '',
+      );
 }

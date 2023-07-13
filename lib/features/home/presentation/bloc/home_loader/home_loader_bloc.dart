@@ -96,10 +96,16 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
   ) async {
     final query = event.query;
 
-    _cancelableOperation?.cancel();
-    _searchStarted();
+    final isChanged = query != state.query;
 
-    _cancelableOperation?.value
-        .whenComplete(() => add(HomeLoaderEvent.fetched(query)));
+    if (isChanged) {
+      emit(state.copyWith(query: query));
+
+      _cancelableOperation?.cancel();
+      _searchStarted();
+
+      _cancelableOperation?.value
+          .whenComplete(() => add(HomeLoaderEvent.fetched(query)));
+    }
   }
 }

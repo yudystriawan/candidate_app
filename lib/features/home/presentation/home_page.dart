@@ -7,6 +7,7 @@ import 'package:candidate_app/injection.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kt_dart/collection.dart';
 
 import 'bloc/home_loader/home_loader_bloc.dart';
 
@@ -34,39 +35,47 @@ class HomePage extends StatelessWidget implements AutoRouteWrapper {
             return HomeFailureWidget(failure: state.failure!);
           }
 
-          return Column(
-            children: [
-              if (state.isLoading) const LinearProgressIndicator(),
-              if (data.isEmpty() && !state.isLoading)
-                const Center(child: Text('No data.')),
-              Expanded(
-                child: ListView.separated(
-                  itemCount: data.size,
-                  padding: const EdgeInsets.all(8),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 8,
-                    );
-                  },
-                  itemBuilder: (BuildContext context, int index) {
-                    final isCandidate = data[index] is Candidate;
-                    final isBlog = data[index] is Blog;
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (state.isLoading) const LinearProgressIndicator(),
+                if (data.isEmpty())
+                  const Expanded(
+                    child: Center(
+                      child: Text('No data.'),
+                    ),
+                  ),
+                if (data.isNotEmpty())
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: data.size,
+                      padding: const EdgeInsets.all(8),
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 8,
+                        );
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        final isCandidate = data[index] is Candidate;
+                        final isBlog = data[index] is Blog;
 
-                    if (isCandidate) {
-                      return CandidateItemWidget(
-                        candidate: data[index] as Candidate,
-                      );
-                    }
+                        if (isCandidate) {
+                          return CandidateItemWidget(
+                            candidate: data[index] as Candidate,
+                          );
+                        }
 
-                    if (isBlog) {
-                      return BlogItemWidget(blog: data[index] as Blog);
-                    }
+                        if (isBlog) {
+                          return BlogItemWidget(blog: data[index] as Blog);
+                        }
 
-                    return const SizedBox();
-                  },
-                ),
-              ),
-            ],
+                        return const SizedBox();
+                      },
+                    ),
+                  )
+              ],
+            ),
           );
         },
       ),

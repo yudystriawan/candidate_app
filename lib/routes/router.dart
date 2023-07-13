@@ -7,6 +7,7 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes {
     return [
       AutoRoute(page: HomeRoute.page, initial: true),
+      AutoRoute(page: DetailCandidateRoute.page),
     ];
   }
 }

@@ -32,6 +32,21 @@ class Candidate with _$Candidate {
 
     return false;
   }
+
+  String getName() {
+    String fullName = '';
+    switch (gender) {
+      case 'm':
+        fullName += 'Mr. ';
+        break;
+      case 'f':
+        fullName += 'Mrs. ';
+        break;
+      default:
+    }
+    fullName += name;
+    return fullName;
+  }
 }
 
 extension IntX on int {

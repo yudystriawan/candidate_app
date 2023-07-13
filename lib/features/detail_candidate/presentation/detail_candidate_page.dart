@@ -1,9 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:candidate_app/features/detail_candidate/presentation/widgets/candidate_address_widget.dart';
+import 'package:candidate_app/features/detail_candidate/presentation/widgets/candidate_contact_widget.dart';
+import 'package:candidate_app/features/detail_candidate/presentation/widgets/candidate_info_widget.dart';
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../injection.dart';
+import 'bloc/detail_candidate_loader/detail_candidate_loader_bloc.dart';
 
 @RoutePage()
-class DetailCandidatePage extends StatelessWidget {
+class DetailCandidatePage extends StatelessWidget implements AutoRouteWrapper {
   const DetailCandidatePage({
     Key? key,
     required this.candidate,
@@ -13,6 +20,43 @@ class DetailCandidatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocBuilder<DetailCandidateLoaderBloc, DetailCandidateLoaderState>(
+      buildWhen: (p, c) => p.isLoading != c.isLoading,
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Detail'),
+            bottom: state.isLoading
+                ? const PreferredSize(
+                    preferredSize: Size.fromHeight(4),
+                    child: LinearProgressIndicator())
+                : null,
+          ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                CandidateInfoWidget(candidate: candidate),
+                const SizedBox(
+                  height: 8,
+                ),
+                const CandidateAddressWidget(),
+                const SizedBox(
+                  height: 8,
+                ),
+                const CandidateContactWidget(),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
+
+  @override
+  Widget wrappedRoute(BuildContext context) => BlocProvider(
+        create: (context) => getIt<DetailCandidateLoaderBloc>()
+          ..add(DetailCandidateLoaderEvent.showed(candidate.id)),
+        child: this,
+      );
 }

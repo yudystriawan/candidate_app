@@ -42,7 +42,7 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
     _Fetched event,
     Emitter<HomeLoaderState> emit,
   ) async {
-    final query = event.query;
+    final query = state.query;
 
     emit(state.copyWith(isLoading: true));
 
@@ -105,7 +105,7 @@ class HomeLoaderBloc extends Bloc<HomeLoaderEvent, HomeLoaderState> {
       _searchStarted();
 
       _cancelableOperation?.value
-          .whenComplete(() => add(HomeLoaderEvent.fetched(query)));
+          .whenComplete(() => add(const HomeLoaderEvent.fetched()));
     }
   }
 }

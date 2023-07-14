@@ -43,14 +43,18 @@ class CandidateInfoWidget extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        '${candidate.getName()} (${status.jobTitle})',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          '${candidate.getName()} (${status.jobTitle})',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
+                        flex: 1,
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Container(

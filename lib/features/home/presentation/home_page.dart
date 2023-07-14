@@ -17,68 +17,78 @@ class HomePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: EasySearchBar(
-        title: const Text('Home'),
-        foregroundColor: Colors.white,
-        onSearch: (value) => context
-            .read<HomeLoaderBloc>()
-            .add(HomeLoaderEvent.queryChanged(value)),
-      ),
-      body: BlocBuilder<HomeLoaderBloc, HomeLoaderState>(
-        buildWhen: (p, c) => p.isLoading != c.isLoading,
-        builder: (context, state) {
-          final data = state.data;
-          final hasError = state.failure != null;
+    return BlocBuilder<HomeLoaderBloc, HomeLoaderState>(
+      buildWhen: (p, c) => p.isLoading != c.isLoading,
+      builder: (context, state) {
+        final data = state.data;
+        final hasError = state.failure != null;
 
-          if (hasError) {
-            return HomeFailureWidget(failure: state.failure!);
-          }
+        return Scaffold(
+          appBar: EasySearchBar(
+            title: const Text('Home'),
+            foregroundColor: Colors.white,
+            onSearch: (value) => context
+                .read<HomeLoaderBloc>()
+                .add(HomeLoaderEvent.queryChanged(value)),
+          ),
+          body: state.isLoading
+              ? const LinearProgressIndicator()
+              : hasError
+                  ? HomeFailureWidget(failure: state.failure!)
+                  : Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (data.isEmpty() && !state.isLoading)
+                            const Expanded(
+                              child: Center(
+                                child: Text('No data.'),
+                              ),
+                            ),
+                          if (data.isNotEmpty())
+                            Expanded(
+                              child: RefreshIndicator(
+                                onRefresh: () async {
+                                  context
+                                      .read<HomeLoaderBloc>()
+                                      .add(const HomeLoaderEvent.fetched());
+                                },
+                                child: ListView.separated(
+                                  itemCount: data.size,
+                                  padding: const EdgeInsets.all(8),
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return const SizedBox(
+                                      height: 8,
+                                    );
+                                  },
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final isCandidate =
+                                        data[index] is Candidate;
+                                    final isBlog = data[index] is Blog;
 
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (state.isLoading) const LinearProgressIndicator(),
-                if (data.isEmpty())
-                  const Expanded(
-                    child: Center(
-                      child: Text('No data.'),
+                                    if (isCandidate) {
+                                      return CandidateItemWidget(
+                                        candidate: data[index] as Candidate,
+                                      );
+                                    }
+
+                                    if (isBlog) {
+                                      return BlogItemWidget(
+                                          blog: data[index] as Blog);
+                                    }
+
+                                    return const SizedBox();
+                                  },
+                                ),
+                              ),
+                            )
+                        ],
+                      ),
                     ),
-                  ),
-                if (data.isNotEmpty())
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: data.size,
-                      padding: const EdgeInsets.all(8),
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 8,
-                        );
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        final isCandidate = data[index] is Candidate;
-                        final isBlog = data[index] is Blog;
-
-                        if (isCandidate) {
-                          return CandidateItemWidget(
-                            candidate: data[index] as Candidate,
-                          );
-                        }
-
-                        if (isBlog) {
-                          return BlogItemWidget(blog: data[index] as Blog);
-                        }
-
-                        return const SizedBox();
-                      },
-                    ),
-                  )
-              ],
-            ),
-          );
-        },
-      ),
+        );
+      },
     );
   }
 

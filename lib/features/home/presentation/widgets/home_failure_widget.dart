@@ -25,14 +25,11 @@ class HomeFailureWidget extends StatelessWidget {
               unableToFetch: (_) => 'Failed to get data, try again later',
             ),
           ),
-          failure.maybeMap(
-            orElse: () => const SizedBox(),
-            serverError: (value) => ElevatedButton(
-              onPressed: () => context
-                  .read<HomeLoaderBloc>()
-                  .add(const HomeLoaderEvent.fetched()),
-              child: const Text('Retry'),
-            ),
+          ElevatedButton(
+            onPressed: () => context
+                .read<HomeLoaderBloc>()
+                .add(const HomeLoaderEvent.fetched()),
+            child: const Text('Retry'),
           ),
         ],
       ),

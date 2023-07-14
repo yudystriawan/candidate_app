@@ -25,14 +25,11 @@ class DetailCandidateFailureWidget extends StatelessWidget {
             unableToFetch: (_) => 'Failed to get data, try again later',
           ),
         ),
-        failure.maybeMap(
-          orElse: () => const SizedBox(),
-          serverError: (value) => ElevatedButton(
-            onPressed: () => context
-                .read<DetailCandidateLoaderBloc>()
-                .add(DetailCandidateLoaderEvent.showed(id)),
-            child: const Text('Retry'),
-          ),
+        ElevatedButton(
+          onPressed: () => context
+              .read<DetailCandidateLoaderBloc>()
+              .add(DetailCandidateLoaderEvent.showed(id)),
+          child: const Text('Retry'),
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:candidate_app/routes/router.gr.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../domain/entities/entity.dart';
 
@@ -19,7 +20,7 @@ class BlogItemWidget extends StatelessWidget {
       onTap: () => context.pushRoute(DetailBlogRoute(blog: blog)),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,7 +30,7 @@ class BlogItemWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
                     width: double.infinity,
-                    height: 160,
+                    height: 160.w,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade300,
                     ),
@@ -43,11 +44,10 @@ class BlogItemWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.w),
               Text(
                 blog.title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -56,13 +56,13 @@ class BlogItemWidget extends StatelessWidget {
               ),
               Text(
                 blog.subtitle,
-                style: const TextStyle(
-                  fontSize: 12,
+                style: TextStyle(
+                  fontSize: 12.sp,
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.w),
               Align(
                 alignment: Alignment.bottomRight,
                 child: Text(

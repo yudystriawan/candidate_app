@@ -3,6 +3,7 @@ import 'package:candidate_app/features/detail_candidate/domain/entities/entity.d
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../bloc/detail_candidate_loader/detail_candidate_loader_bloc.dart';
 
@@ -25,8 +26,8 @@ class CandidateInfoWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 48,
-              height: 48,
+              width: 48.w,
+              height: 48.w,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
@@ -34,8 +35,8 @@ class CandidateInfoWidget extends StatelessWidget {
                 backgroundImage: NetworkImage(candidate.photoUrl),
               ),
             ),
-            const SizedBox(
-              width: 12,
+            SizedBox(
+              width: 12.w,
             ),
             Expanded(
               child: Column(
@@ -52,15 +53,15 @@ class CandidateInfoWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       Expanded(
                         flex: 1,
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                               color: _getBackgroundColor(status),
                             ),
                             child: Text(
@@ -74,29 +75,29 @@ class CandidateInfoWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.w),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.cake,
-                        size: 16,
+                        size: 16.w,
                         color: Colors.grey,
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Text(
                         candidate.birthday.toDateFormat(),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.w),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.work,
-                        size: 16,
+                        size: 16.w,
                         color: Colors.grey,
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Text(
                         '${status.companyName} (${status.industry})',
                       ),

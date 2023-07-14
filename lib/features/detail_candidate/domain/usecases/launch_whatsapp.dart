@@ -13,8 +13,6 @@ class LaunchWhatsapp implements Usecase<Unit, Params> {
 
   @override
   Future<Either<Failure, Unit>> call(Params params) async {
-    final phoneNumber = params.phoneNumber;
-
     return await _repository.launchWhatsappApp(
       phoneNumber: params.phoneNumber,
       message: params.contentMessage,

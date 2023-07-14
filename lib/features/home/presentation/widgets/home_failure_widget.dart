@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/error/failures.dart';
+import '../bloc/home_loader/home_loader_bloc.dart';
 
 class HomeFailureWidget extends StatelessWidget {
   const HomeFailureWidget({
@@ -19,6 +21,15 @@ class HomeFailureWidget extends StatelessWidget {
             orElse: () => 'Something went wrong',
             serverError: (value) => 'Server error, try again later',
             unableToFetch: (_) => 'Failed to get data, try again later',
+          ),
+        ),
+        failure.maybeMap(
+          orElse: () => const SizedBox(),
+          serverError: (value) => ElevatedButton(
+            onPressed: () => context
+                .read<HomeLoaderBloc>()
+                .add(const HomeLoaderEvent.fetched()),
+            child: const Text('Retry'),
           ),
         ),
       ],

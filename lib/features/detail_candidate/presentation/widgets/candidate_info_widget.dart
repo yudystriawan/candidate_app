@@ -1,3 +1,4 @@
+import 'package:candidate_app/core/extensions/extension.dart';
 import 'package:candidate_app/features/detail_candidate/domain/entities/entity.dart';
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
 import 'package:flutter/material.dart';

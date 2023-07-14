@@ -3,6 +3,7 @@ import 'package:candidate_app/core/extensions/extension.dart';
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
 import 'package:candidate_app/routes/router.gr.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CandidateItemWidget extends StatelessWidget {
   const CandidateItemWidget({
@@ -20,22 +21,18 @@ class CandidateItemWidget extends StatelessWidget {
           context.pushRoute(DetailCandidateRoute(candidate: candidate)),
       child: Card(
         child: Container(
-          height: 120,
-          padding: const EdgeInsets.all(12),
+          height: 120.w,
+          padding: EdgeInsets.all(12.w),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 82,
-                height: 82,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
+              ClipRRect(
                 child: CircleAvatar(
+                  radius: 36.r,
                   backgroundImage: NetworkImage(candidate.photoUrl),
                 ),
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: 16.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,12 +41,12 @@ class CandidateItemWidget extends StatelessWidget {
                   children: [
                     Text(
                       candidate.getName(),
-                      style: const TextStyle(
-                        fontSize: 18,
+                      style: TextStyle(
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,12 +54,12 @@ class CandidateItemWidget extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.cake,
-                                size: 18,
+                                size: 18.w,
                                 color: Colors.grey,
                               ),
-                              const SizedBox(width: 4),
+                              SizedBox(width: 4.w),
                               Text(
                                 candidate.birthday.toDateFormat(),
                                 style: const TextStyle(

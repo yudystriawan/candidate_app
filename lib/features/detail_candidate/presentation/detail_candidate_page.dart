@@ -7,6 +7,7 @@ import 'package:candidate_app/features/detail_candidate/presentation/widgets/det
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../injection.dart';
 import 'bloc/detail_candidate_loader/detail_candidate_loader_bloc.dart';
@@ -32,9 +33,9 @@ class DetailCandidatePage extends StatelessWidget implements AutoRouteWrapper {
           appBar: AppBar(
             title: const Text('Detail'),
             bottom: state.isLoading
-                ? const PreferredSize(
-                    preferredSize: Size.fromHeight(4),
-                    child: LinearProgressIndicator())
+                ? PreferredSize(
+                    preferredSize: Size.fromHeight(4.w),
+                    child: const LinearProgressIndicator())
                 : null,
           ),
           body: state.isLoading
@@ -45,16 +46,16 @@ class DetailCandidatePage extends StatelessWidget implements AutoRouteWrapper {
                       id: candidate.id,
                     )
                   : SingleChildScrollView(
-                      padding: const EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10.w),
                       child: Column(
                         children: [
                           CandidateInfoWidget(candidate: candidate),
-                          const SizedBox(
-                            height: 8,
+                          SizedBox(
+                            height: 8.w,
                           ),
                           const CandidateAddressWidget(),
-                          const SizedBox(
-                            height: 8,
+                          SizedBox(
+                            height: 8.w,
                           ),
                           const CandidateContactWidget(),
                         ],

@@ -7,6 +7,7 @@ import 'package:candidate_app/injection.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kt_dart/collection.dart';
 
 import 'bloc/home_loader/home_loader_bloc.dart';
@@ -58,9 +59,7 @@ class HomePage extends StatelessWidget implements AutoRouteWrapper {
                                   padding: const EdgeInsets.all(8),
                                   separatorBuilder:
                                       (BuildContext context, int index) {
-                                    return const SizedBox(
-                                      height: 8,
-                                    );
+                                    return SizedBox(height: 8.w);
                                   },
                                   itemBuilder:
                                       (BuildContext context, int index) {

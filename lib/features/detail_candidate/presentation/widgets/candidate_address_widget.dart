@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../bloc/detail_candidate_loader/detail_candidate_loader_bloc.dart';
 
@@ -14,15 +15,16 @@ class CandidateAddressWidget extends StatelessWidget {
         return Card(
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Address',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.w),
                 Text(
                   state.address.formattedAddress,
                 ),

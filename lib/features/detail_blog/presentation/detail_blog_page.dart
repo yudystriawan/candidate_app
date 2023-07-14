@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:candidate_app/core/extensions/extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../home/domain/entities/entity.dart';
 
@@ -23,7 +24,7 @@ class DetailBlogPage extends StatelessWidget {
         foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.all(8.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,43 +33,42 @@ class DetailBlogPage extends StatelessWidget {
               child: Text(
                 blog.title,
                 textAlign: TextAlign.start,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.sp),
               ),
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: 12.w,
             ),
             Row(
               children: [
                 Text(
                   'By ${blog.author}',
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: TextStyle(
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(
-                  width: 2,
+                SizedBox(
+                  width: 2.w,
                 ),
                 Expanded(
                   child: Text(
                     blog.createdAt.toDateFormat('d MMMM yyyy hh:mm'),
-                    style: const TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 12.sp),
                   ),
                 )
               ],
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: 12.w,
             ),
             Hero(
               tag: blog.photoUrl,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
                 child: Container(
                   width: double.infinity,
-                  height: 160,
+                  height: 160.w,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade300,
                   ),
@@ -82,23 +82,23 @@ class DetailBlogPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 4,
+            SizedBox(
+              height: 4.w,
             ),
             Text(
               blog.subtitle,
               textAlign: TextAlign.left,
-              style: const TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 12.sp),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.w,
             ),
             Text(
               blog.content,
               textAlign: TextAlign.left,
             ),
-            const Divider(
-              height: 16,
+            Divider(
+              height: 16.w,
             ),
             Text('Tag: ${blog.tag}'),
           ],

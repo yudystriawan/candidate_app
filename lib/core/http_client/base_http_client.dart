@@ -1,4 +1,5 @@
 import 'package:candidate_app/core/http_client/config.dart';
+import 'package:candidate_app/core/http_client/interceptors/server_error_interceptor.dart';
 import 'package:dio/dio.dart';
 
 class BaseHttpClient {
@@ -10,6 +11,9 @@ class BaseHttpClient {
     this._dio,
   ) {
     _dio.options = getBaseOptions(baseUrl);
+
+    // this interceptor is to modify response to always have a status code of 500
+    _dio.interceptors.add(ServerErrorInterceptor());
   }
 
   Future<Response> post(

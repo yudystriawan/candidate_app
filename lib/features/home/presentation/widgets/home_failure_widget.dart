@@ -14,25 +14,28 @@ class HomeFailureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            failure.maybeMap(
+              orElse: () => 'Something went wrong',
+              serverError: (value) => 'Server error, try again later',
+              unableToFetch: (_) => 'Failed to get data, try again later',
+            ),
+          ),
           failure.maybeMap(
-            orElse: () => 'Something went wrong',
-            serverError: (value) => 'Server error, try again later',
-            unableToFetch: (_) => 'Failed to get data, try again later',
+            orElse: () => const SizedBox(),
+            serverError: (value) => ElevatedButton(
+              onPressed: () => context
+                  .read<HomeLoaderBloc>()
+                  .add(const HomeLoaderEvent.fetched()),
+              child: const Text('Retry'),
+            ),
           ),
-        ),
-        failure.maybeMap(
-          orElse: () => const SizedBox(),
-          serverError: (value) => ElevatedButton(
-            onPressed: () => context
-                .read<HomeLoaderBloc>()
-                .add(const HomeLoaderEvent.fetched()),
-            child: const Text('Retry'),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

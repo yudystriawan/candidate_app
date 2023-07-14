@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:candidate_app/core/extensions/extension.dart';
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
 import 'package:candidate_app/routes/router.gr.dart';
 import 'package:flutter/material.dart';

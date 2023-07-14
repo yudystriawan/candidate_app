@@ -6,11 +6,11 @@ class BlogDto with _$BlogDto {
   const factory BlogDto({
     int? id,
     String? title,
-    String? subTitle,
+    @JsonKey(name: 'subTitle') String? subtitle,
     String? photo,
     String? content,
     String? author,
-    @JsonKey(name: 'create_at') int? createAt,
+    @JsonKey(name: 'create_at') int? createdAt,
     String? tag,
   }) = _BlogDto;
 
@@ -21,11 +21,11 @@ class BlogDto with _$BlogDto {
     return Blog(
       id: id ?? 0,
       title: title ?? '',
-      subtitle: subTitle ?? '',
+      subtitle: subtitle ?? '',
       photoUrl: photo ?? '',
       content: content ?? '',
       author: author ?? '',
-      createdAt: createAt ?? 0,
+      createdAt: createdAt ?? 0,
       tag: tag ?? '',
     );
   }

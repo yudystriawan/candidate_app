@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:candidate_app/features/detail_candidate/presentation/widgets/candidate_address_widget.dart';
 import 'package:candidate_app/features/detail_candidate/presentation/widgets/candidate_contact_widget.dart';
 import 'package:candidate_app/features/detail_candidate/presentation/widgets/candidate_info_widget.dart';
+import 'package:candidate_app/features/detail_candidate/presentation/widgets/detail_candidate_failure_widget.dart';
 import 'package:candidate_app/features/detail_candidate/presentation/widgets/detail_candidate_skeleton.dart';
 import 'package:candidate_app/features/home/domain/entities/entity.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class DetailCandidatePage extends StatelessWidget implements AutoRouteWrapper {
     return BlocBuilder<DetailCandidateLoaderBloc, DetailCandidateLoaderState>(
       buildWhen: (p, c) => p.isLoading != c.isLoading,
       builder: (context, state) {
+        final hasError = state.failure != null;
+
         return Scaffold(
           appBar: AppBar(
             title: const Text('Detail'),
@@ -36,22 +39,27 @@ class DetailCandidatePage extends StatelessWidget implements AutoRouteWrapper {
           ),
           body: state.isLoading
               ? const DetailCandidateSkeleton()
-              : SingleChildScrollView(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      CandidateInfoWidget(candidate: candidate),
-                      const SizedBox(
-                        height: 8,
+              : hasError
+                  ? DetailCandidateFailureWidget(
+                      failure: state.failure!,
+                      id: candidate.id,
+                    )
+                  : SingleChildScrollView(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          CandidateInfoWidget(candidate: candidate),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const CandidateAddressWidget(),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const CandidateContactWidget(),
+                        ],
                       ),
-                      const CandidateAddressWidget(),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const CandidateContactWidget(),
-                    ],
-                  ),
-                ),
+                    ),
         );
       },
     );
